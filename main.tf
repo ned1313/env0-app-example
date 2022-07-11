@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "main" {
 
 module "network" {
   source = "api.env0.com/e02c6435-0492-493d-96bc-55fd7f5a8570/network/azurerm"
-  version = "v1.0.0"
+  version = "1.0.1"
 
   resource_group_name = azurerm_resource_group.main.name
 
