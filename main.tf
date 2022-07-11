@@ -94,10 +94,10 @@ resource "azurerm_linux_virtual_machine" "main" {
   }
 
   computer_name  = local.base_name
-  custom_data = templatefile("${path.module}/templates/custom_data.tpl", {
+  custom_data = base64encode(templatefile("${path.module}/templates/custom_data.tpl", {
     admin_username = var.admin_username
     port = var.app_port_number
-  })
+  }))
 
   tags = local.common_tags
 }
