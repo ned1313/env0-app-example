@@ -20,7 +20,7 @@ module "network" {
 
   vnet_name          = local.base_name
   vnet_address_space = var.vnet_address_space
-  subnets = var.subnets
+  subnets = var.subnet_map
   common_tags = local.common_tags
 
   depends_on = [
