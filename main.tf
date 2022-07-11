@@ -18,12 +18,9 @@ module "network" {
 
   resource_group_name = azurerm_resource_group.main.name
 
-  vnet_name          = "existing-rg-vnet"
-  vnet_address_space = ["10.42.0.0/16"]
-  subnets = {
-    web = "10.42.0.0/24"
-    db  = "10.42.1.0/24"
-  }
+  vnet_name          = local.base_name
+  vnet_address_space = var.vnet_address_space
+  subnets = var.subnets
   common_tags = local.common_tags
 
   depends_on = [
@@ -66,8 +63,8 @@ resource "azurerm_network_interface" "main" {
 
   ip_configuration {
     name                          = "${var.prefix}NICConfg"
-    subnet_id                     = var.app_subnet_id
-    private_ip_address_allocation = "dynamic"
+    subnet_id                     = module.network.subnet_ids[var.app_subnet]
+    private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.main.id
   }
 }

@@ -1,0 +1,20 @@
+version: 1
+
+deploy:
+  steps:
+    setupVariables:
+      after:
+        - curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64_static
+        - chmod 755 ./opa
+        - ./opa version
+    terraformInit:
+      before:
+        - ls
+        - cat env0.auto.tfvars
+      after:
+        - terraform validate
+    terraformPlan:
+      after:
+        - terraform show -json .tf-plan > tf-plan.json
+        - jq . tf-plan.json
+        #- ./opa eval --fail-defined "data.terraform.validation.violations[msg]" --input tf-plan.json --data ./tf-lib.rego --data ./policy.rego --format values 1>&2

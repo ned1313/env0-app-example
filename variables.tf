@@ -47,9 +47,19 @@ variable "admin_password" {
     sensitive = true
 }
 
-variable "app_subnet_id" {
+variable "vnet_address_space" {
+  type = list(string)
+  description = "(Required) Address space for the virtual network."  
+}
+
+variable "subnet_map" {
+  type = map(string)
+  description = "(Required) Map of subnet names and address spaces."
+}
+
+variable "app_subnet" {
   type = string
-  desdescription = "(Required) Subnet ID for the app."  
+  description = "(Required) Name of subnet for app VM deployment. Must also be in keys from subnet_map."
 }
 
 variable "app_port_number" {
