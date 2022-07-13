@@ -33,8 +33,8 @@ variable "organization_tag" {
 
 variable "vm_size" {
   type = string
-  description = "(Optional) VM size for app."
-  default = "Standard_D2s_v4"
+  description = "(Optional) VM size for app. Defaults to Standard_D2s_v5."
+  default = "Standard_D2s_v5"
 }
 
 variable "admin_username" {
