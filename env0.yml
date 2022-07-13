@@ -16,5 +16,5 @@ deploy:
     terraformPlan:
       after:
         - terraform show -json .tf-plan > tf-plan.json
-        - jq . tf-plan.json
-        - ./opa eval --fail-defined "data.terraform.validation.vm_size_deny[message]" --input tfplan.json --data ./policy.rego --format values 1>&2
+        #- jq . tf-plan.json
+        - ./opa eval --fail-defined "data.terraform.validation.vm_size_deny[message]" --input tf-plan.json --data ./policy.rego --format values 1>&2

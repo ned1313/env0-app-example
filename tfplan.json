@@ -1,4 +1,5 @@
 {
+
   "format_version": "1.1",
   "terraform_version": "1.2.2",
   "variables": {
@@ -39,7 +40,7 @@
       }
     },
     "vm_size": {
-      "value": "Standard_D2s_v4"
+      "value": "Standard_D2s_v5"
     },
     "vnet_address_space": {
       "value": [
@@ -121,7 +122,7 @@
             "resource_group_name": "env0prodapp",
             "secret": [],
             "secure_boot_enabled": false,
-            "size": "Standard_D2s_v4",
+            "size": "Standard_D2s_v5",
             "source_image_id": "",
             "source_image_reference": [
               {
@@ -509,79 +510,6 @@
       ]
     }
   },
-  "resource_drift": [
-    {
-      "address": "azurerm_public_ip.main",
-      "mode": "managed",
-      "type": "azurerm_public_ip",
-      "name": "main",
-      "provider_name": "registry.terraform.io/hashicorp/azurerm",
-      "change": {
-        "actions": [
-          "update"
-        ],
-        "before": {
-          "allocation_method": "Dynamic",
-          "domain_name_label": "env0prodapp",
-          "edge_zone": "",
-          "fqdn": "env0prodapp.eastus.cloudapp.azure.com",
-          "id": "/subscriptions/4d8e572a-3214-40e9-a26f-8f71ecd24e0d/resourceGroups/env0prodapp/providers/Microsoft.Network/publicIPAddresses/env0prodapp",
-          "idle_timeout_in_minutes": 4,
-          "ip_address": "20.228.251.9",
-          "ip_tags": {},
-          "ip_version": "IPv4",
-          "location": "eastus",
-          "name": "env0prodapp",
-          "public_ip_prefix_id": null,
-          "resource_group_name": "env0prodapp",
-          "reverse_fqdn": "",
-          "sku": "Basic",
-          "sku_tier": "Regional",
-          "tags": {
-            "env0_environment_id": "387cf810-a845-4845-82a8-e543f36cc8de",
-            "env0_project_id": "95788c1e-b663-4002-b703-f43ec6cf4d5a"
-          },
-          "timeouts": null,
-          "zones": []
-        },
-        "after": {
-          "allocation_method": "Dynamic",
-          "domain_name_label": "env0prodapp",
-          "edge_zone": "",
-          "fqdn": "env0prodapp.eastus.cloudapp.azure.com",
-          "id": "/subscriptions/4d8e572a-3214-40e9-a26f-8f71ecd24e0d/resourceGroups/env0prodapp/providers/Microsoft.Network/publicIPAddresses/env0prodapp",
-          "idle_timeout_in_minutes": 4,
-          "ip_address": "20.127.30.248",
-          "ip_tags": {},
-          "ip_version": "IPv4",
-          "location": "eastus",
-          "name": "env0prodapp",
-          "public_ip_prefix_id": null,
-          "resource_group_name": "env0prodapp",
-          "reverse_fqdn": "",
-          "sku": "Basic",
-          "sku_tier": "Regional",
-          "tags": {
-            "env0_environment_id": "387cf810-a845-4845-82a8-e543f36cc8de",
-            "env0_project_id": "95788c1e-b663-4002-b703-f43ec6cf4d5a"
-          },
-          "timeouts": null,
-          "zones": []
-        },
-        "after_unknown": {},
-        "before_sensitive": {
-          "ip_tags": {},
-          "tags": {},
-          "zones": []
-        },
-        "after_sensitive": {
-          "ip_tags": {},
-          "tags": {},
-          "zones": []
-        }
-      }
-    }
-  ],
   "resource_changes": [
     {
       "address": "azurerm_linux_virtual_machine.main",
@@ -732,7 +660,7 @@
           "resource_group_name": "env0prodapp",
           "secret": [],
           "secure_boot_enabled": false,
-          "size": "Standard_D2s_v4",
+          "size": "Standard_D2s_v5",
           "source_image_id": "",
           "source_image_reference": [
             {
@@ -1157,7 +1085,9 @@
           "timeouts": null,
           "zones": []
         },
-        "after_unknown": {},
+        "after_unknown": {}
+
+,
         "before_sensitive": {
           "ip_tags": {},
           "tags": {},
@@ -2598,20 +2528,14 @@
   },
   "relevant_attributes": [
     {
-      "resource": "module.network.azurerm_virtual_network.main",
-      "attribute": [
-        "name"
-      ]
+      "resource": "module.network.azurerm_subnet.main",
+      "attribute": []
     },
     {
-      "resource": "module.network.azurerm_virtual_network.main",
+      "resource": "azurerm_network_interface.main",
       "attribute": [
         "id"
       ]
-    },
-    {
-      "resource": "module.network.azurerm_subnet.main",
-      "attribute": []
     },
     {
       "resource": "azurerm_resource_group.main",
@@ -2626,15 +2550,21 @@
       ]
     },
     {
-      "resource": "azurerm_network_interface.main",
-      "attribute": [
-        "id"
-      ]
-    },
-    {
       "resource": "module.network.data.azurerm_resource_group.main",
       "attribute": [
         "name"
+      ]
+    },
+    {
+      "resource": "module.network.azurerm_virtual_network.main",
+      "attribute": [
+        "name"
+      ]
+    },
+    {
+      "resource": "module.network.azurerm_virtual_network.main",
+      "attribute": [
+        "id"
       ]
     }
   ]
