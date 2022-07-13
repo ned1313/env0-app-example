@@ -2,8 +2,6 @@ package terraform.validation
 
 import future.keywords.every
 
-default  allow = false
-
 resources := { r |
   some path, value
 
@@ -80,16 +78,11 @@ allowed_vm_sizes_reg_ex := `^Standard_[D,E][2-8]d?s?_v5$`
 
 vm_type := ["azurerm_linux_virtual_machine","azurerm_windows_virtual_machine","azurerm_virtual_machine"]
 all_vms := { resources[r].address : vm_size | resources[r].type in vm_type; vm_size := resources[r].values.size }
-vm_sizes := [ vm_size | resources[r].type in vm_type; vm_size := resources[r].values.size ]
 
-allowed_vm_sizes {
-    every vm in vm_sizes {
-        regex.match(allowed_vm_sizes_reg_ex, vm)
-    }
+
+vm_size_deny[message] {
+    some vm_name, vm_size in all_vms
+    not regex.match(allowed_vm_sizes_reg_ex, vm_size)
     
-}
-
-
-allow {
-    allowed_vm_sizes
+    message := sprintf("VM size '%s' not allowed for VM '%s'", [vm_size, vm_name])
 }

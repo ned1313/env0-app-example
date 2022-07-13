@@ -39,7 +39,7 @@
       }
     },
     "vm_size": {
-      "value": "Standard_D2s_v5"
+      "value": "Standard_D2s_v4"
     },
     "vnet_address_space": {
       "value": [
@@ -121,7 +121,7 @@
             "resource_group_name": "env0prodapp",
             "secret": [],
             "secure_boot_enabled": false,
-            "size": "Standard_D2s_v5",
+            "size": "Standard_D2s_v4",
             "source_image_id": "",
             "source_image_reference": [
               {
@@ -650,7 +650,7 @@
           "resource_group_name": "env0prodapp",
           "secret": [],
           "secure_boot_enabled": false,
-          "size": "Standard_D2s_v5",
+          "size": "Standard_D2s_v4",
           "source_image_id": "",
           "source_image_reference": [
             {
@@ -732,7 +732,7 @@
           "resource_group_name": "env0prodapp",
           "secret": [],
           "secure_boot_enabled": false,
-          "size": "Standard_D2s_v5",
+          "size": "Standard_D2s_v4",
           "source_image_id": "",
           "source_image_reference": [
             {
@@ -1533,7 +1533,7 @@
               "resource_group_name": "env0prodapp",
               "secret": [],
               "secure_boot_enabled": false,
-              "size": "Standard_D2s_v5",
+              "size": "Standard_D2s_v4",
               "source_image_id": "",
               "source_image_reference": [
                 {
@@ -2587,7 +2587,7 @@
           "description": "(Required) Map of subnet names and address spaces."
         },
         "vm_size": {
-          "default": "Standard_D2s_v5",
+          "default": "Standard_D2s_v4",
           "description": "(Optional) VM size for app."
         },
         "vnet_address_space": {
