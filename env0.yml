@@ -17,4 +17,4 @@ deploy:
       after:
         - terraform show -json .tf-plan > tf-plan.json
         - jq . tf-plan.json
-        - ./opa eval --fail-defined "data.terraform.validation.allow" --input tf-plan.json --data --data ./policy.rego --format values 1>&2
+        - ./opa eval --fail-defined "data.terraform.validation.allow" --input tf-plan.json --data ./policy.rego --format values 1>&2

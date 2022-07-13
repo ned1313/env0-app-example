@@ -91,5 +91,5 @@ allowed_vm_sizes {
 
 
 allow {
-    allowed_vm_sizes == true
+    allowed_vm_sizes
 }
