@@ -3,7 +3,7 @@ locals {
   common_tags = merge(var.common_tags, {
     BusinessUnit = var.business_unit_tag
     Organization = var.organization_tag
-    Environment = var.environment
+    Environment  = var.environment
   })
 }
 
@@ -13,15 +13,15 @@ resource "azurerm_resource_group" "main" {
 }
 
 module "network" {
-  source = "api.env0.com/e02c6435-0492-493d-96bc-55fd7f5a8570/network/azurerm"
+  source  = "api.env0.com/e02c6435-0492-493d-96bc-55fd7f5a8570/network/azurerm"
   version = "1.0.1"
 
   resource_group_name = azurerm_resource_group.main.name
 
   vnet_name          = local.base_name
   vnet_address_space = var.vnet_address_space
-  subnets = var.subnet_map
-  common_tags = local.common_tags
+  subnets            = var.subnet_map
+  common_tags        = local.common_tags
 
   depends_on = [
     azurerm_resource_group.main
@@ -33,7 +33,7 @@ resource "azurerm_public_ip" "main" {
   location            = var.location
   resource_group_name = azurerm_resource_group.main.name
   allocation_method   = "Dynamic"
-  domain_name_label   = "${lower(local.base_name)}"
+  domain_name_label   = lower(local.base_name)
 }
 
 resource "azurerm_network_security_group" "main" {
@@ -51,15 +51,15 @@ resource "azurerm_network_security_rule" "app" {
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_range      = "${var.app_port_number}"
-  source_address_prefix       = "*"
+  destination_port_range      = var.app_port_number
+  source_address_prefix       = "*" #tfsec:ignore:azure-network-no-public-ingress
   destination_address_prefix  = "*"
 }
 
 resource "azurerm_network_interface" "main" {
-  name                      = local.base_name
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.main.name
+  name                = local.base_name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.main.name
 
   ip_configuration {
     name                          = "${var.prefix}NICConfg"
@@ -75,11 +75,11 @@ resource "azurerm_linux_virtual_machine" "main" {
   location              = azurerm_resource_group.main.location
   resource_group_name   = azurerm_resource_group.main.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  size               = var.vm_size
-  admin_username = var.admin_username
-  admin_password = var.admin_password
+  size                  = var.vm_size
+  admin_username        = var.admin_username
+  admin_password        = var.admin_password
 
-  disable_password_authentication = false
+  disable_password_authentication = false #tfsec:ignore:azure-compute-disable-password-authentication
 
   os_disk {
     caching              = "ReadWrite"
@@ -93,10 +93,10 @@ resource "azurerm_linux_virtual_machine" "main" {
     version   = "latest"
   }
 
-  computer_name  = local.base_name
+  computer_name = local.base_name
   custom_data = base64encode(templatefile("${path.module}/templates/custom_data.tpl", {
     admin_username = var.admin_username
-    port = var.app_port_number
+    port           = var.app_port_number
   }))
 
   tags = local.common_tags

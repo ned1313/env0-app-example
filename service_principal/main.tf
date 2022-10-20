@@ -6,9 +6,9 @@ provider "azurerm" {
 }
 
 variable "service_principal_name" {
-  type = string
+  type        = string
   description = "The name of the service principal"
-  default = "env0-sp"
+  default     = "env0-sp"
 }
 
 data "azurerm_subscription" "current" {}

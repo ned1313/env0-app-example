@@ -1,0 +1,43 @@
+name: 'Feature Branch CI'
+
+on: 
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+env:
+  TF_LOG: DEBUG
+
+jobs:
+  terraform-ci:
+    name: 'Terraform CI'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the preferred version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
+
+    - name: Initialize Terraform
+      id: init
+      run: terraform init
+
+    - name: Check Formatting
+      id: fmt
+      run: terraform fmt -recursive -check
+
+    - name: Terraform Validate
+      id: validate
+      if: success() || failure()
+      run: terraform validate
