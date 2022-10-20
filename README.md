@@ -98,6 +98,7 @@ You will be taken to the project page.
   * Click on *Save*
 
 Your project is ready to go! The next step is to create an environment. Follow the directions in the video to deploy the environment. 
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
